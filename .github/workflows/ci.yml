@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  core:
+    name: C library, CLI, and tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build (warnings as errors)
+        run: make -C core CFLAGS="-O2 -std=c11 -Wall -Wextra -Wpedantic -Werror -fPIC"
+      - name: Test
+        run: make -C core check
+
+  web:
+    name: Frontend build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build frontend
+        working-directory: web
+        run: |
+          npm ci
+          npm run build
+
+  server:
+    name: Server syntax check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install and check
+        working-directory: server
+        run: |
+          npm ci
+          find src -name '*.js' -exec node --check {} +

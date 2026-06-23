@@ -1,0 +1,20 @@
+{
+  "name": "pika-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Optional web service for pika: shareable reading links and a token-authenticated HTTP API, backed by the pika CLI.",
+  "license": "GPL-3.0-or-later",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "multer": "^2.2.0"
+  }
+}

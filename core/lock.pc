@@ -1,0 +1,11 @@
+prefix=/tmp/claude-0/-home-user-pika/6653b755-837f-5a3d-b2b1-612d865db558/scratchpad/ptypfx2
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: lock
+Description: Focal-point (RSVP) reading engine
+Version: 1.0.0
+Libs: -L${libdir} -Wl,-rpath,${libdir} -llock
+Libs.private: -L${libdir} -llock
+Cflags: -I${includedir}
